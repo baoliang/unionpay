@@ -19,7 +19,7 @@ module UnionPay
       case e
       ## 测试环境
       when :development
-        self.front_pay_url = "http://58.246.226.99/UpopWeb/api/Pay.action"
+        self.front_pay_url = "https://101.231.204.80:5000/gateway/api/frontTransReq.do"
         self.back_pay_url = "http://58.246.226.99/UpopWeb/api/BSPay.action"
         self.query_url = "http://58.246.226.99/UpopWeb/api/Query.action"
       ## 预上线环境
