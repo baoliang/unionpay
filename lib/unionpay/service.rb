@@ -14,18 +14,9 @@ module UnionPay
 
     def self.front_pay(param)
       new.instance_eval do
-        param['orderTime']         ||= Time.now.strftime('%Y%m%d%H%M%S')         #交易时间, YYYYmmhhddHHMMSS
-        param['orderCurrency']     ||= UnionPay::CURRENCY_CNY                    #交易币种，CURRENCY_CNY=>人民币
-        param['transType']         ||= UnionPay::CONSUME
-        trans_type = param['transType']
-        if [UnionPay::CONSUME, UnionPay::PRE_AUTH].include? trans_type
-          @api_url = UnionPay.front_pay_url
-          self.args = PayParamsEmpty.merge(PayParams).merge(param)
-          @param_check = UnionPay::PayParamsCheck
-        else
-          # 前台交易仅支持 消费 和 预授权
-          raise("Bad trans_type for front_pay. Use back_pay instead")
-        end
+        time_str = Time.now.strftime('%Y%m%d%H%M%S')
+        param['orderId'] = time_str
+        param['orderId'] = time_str
         service
       end
     end
@@ -131,25 +122,9 @@ module UnionPay
 
     private
     def service
-      if self.args['commodityUrl']
-        self.args['commodityUrl'] = URI::encode(self.args['commodityUrl'])
-      end
-
-      arr_reserved = []
-      UnionPay::MerParamsReserved.each do |k|
-        arr_reserved << "#{k}=#{self.args.delete k}" if self.args.has_key? k
-      end
-
-      if arr_reserved.any?
-        self.args['merReserved'] = arr_reserved.join('&')
-      else
-        self.args['merReserved'] ||= ''
-      end
-
       @param_check.each do |k|
         raise("KEY [#{k}] not set in params given") unless self.args.has_key? k
       end
-
       # signature
       self.args['signature']  = Service.sign(self.args)
       self.args['signMethod'] = UnionPay::Sign_method

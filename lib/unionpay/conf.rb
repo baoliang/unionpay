@@ -14,8 +14,7 @@ module UnionPay
     'charset' => 'UTF-8', #UTF-8, GBK等
     'merId'   => '88888888', #商户填写
     'acqCode' => '', #收单机构填写
-    'merCode' => '', #收单机构填写
-    'merAbbr' => '商户名称'
+
   }
 
   FRONT_PAY = 1
@@ -36,50 +35,26 @@ module UnionPay
 
   # 支付请求可为空字段（但必须填写）
   PayParamsEmpty = {
-    "origQid" => "",
-    "acqCode" => "",
-    "merCode" => "",
-    "commodityUrl" => "",
-    "commodityName" => "",
-    "commodityUnitPrice" => "",
-    "commodityQuantity" => "",
-    "commodityDiscount" => "",
-    "transferFee" => "",
-    "customerName" => "",
-    "defaultPayType" => "",
-    "defaultBankNumber" => "",
-    "transTimeout" => "",
-    "merReserved" => ""
   }
 
   # 支付请求必填字段检查
   PayParamsCheck = [
     "version",
-    "charset",
-    "transType",
-    "origQid",
+    "encoding",
+    "txnType",
     "merId",
-    "merAbbr",
-    "acqCode",
-    "merCode",
-    "commodityUrl",
-    "commodityName",
-    "commodityUnitPrice",
-    "commodityQuantity",
-    "commodityDiscount",
-    "transferFee",
-    "orderNumber",
-    "orderAmount",
-    "orderCurrency",
-    "orderTime",
-    "customerIp",
-    "customerName",
-    "defaultPayType",
-    "defaultBankNumber",
-    "transTimeout",
-    "frontEndUrl",
-    "backEndUrl",
-    "merReserved"
+    "frontUrl",
+    "currencyCode",
+    "channelType",
+    "txnSubType",
+    "signMethod",
+    "backUrl",
+    "certId",
+    "bizType",
+    "signature",
+    "orderId",
+    "accessType",
+    "txnTime",
   ]
 
   # 查询请求必填字段检查
