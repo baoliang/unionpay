@@ -17,6 +17,9 @@ module UnionPay
         time_str = Time.now.strftime('%Y%m%d%H%M%S')
         param['orderId'] = time_str
         param['orderId'] = time_str
+        @api_url = UnionPay.front_pay_url
+        self.args = PayParamsEmpty.merge(PayParams).merge(param)
+        @param_check = UnionPay::PayParamsChec
         service
       end
     end
