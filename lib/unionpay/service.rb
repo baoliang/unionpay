@@ -19,7 +19,7 @@ module UnionPay
         param['orderId'] = time_str
         @api_url = UnionPay.front_pay_url
         self.args = PayParamsEmpty.merge(PayParams).merge(param)
-        @param_check = UnionPay::PayParamsChec
+        @param_check = UnionPay::PayParamsCheck
         service
       end
     end
