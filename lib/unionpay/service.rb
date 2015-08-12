@@ -19,7 +19,7 @@ module UnionPay
         param['orderId'] = time_str
         @api_url = UnionPay.front_pay_url
         self.args = PayParamsEmpty.merge(PayParams).merge(param)
-        @param_check = UnionPay::PayParamsCheck
+        @param_check = PayParamsCheck
         service
       end
     end
@@ -125,9 +125,9 @@ module UnionPay
 
     private
     def service
-      @param_check.each do |k|
-        raise("KEY [#{k}] not set in params given") unless self.args.has_key? k
-      end
+      # @param_check.each do |k|
+      #   raise("KEY [#{k}] not set in params given") unless self.args.has_key? k
+      # end
       # signature
       self.args['signature']  = Service.sign(self.args)
       self.args['signMethod'] = UnionPay::Sign_method
